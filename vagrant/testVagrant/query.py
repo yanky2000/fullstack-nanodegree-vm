@@ -27,12 +27,17 @@ def fetchRestaurants():
     restsList = []
     for rest in rests:
         restsList.append(rest)
-    print restsList
+    # print restsList
     return restsList
 
 # fetchRestaurants()
 
-test = "test"
+def addRestaurant(name):
+    newRestaurant = Restaurant(name=name)
+    session.add(newRestaurant)
+    session.commit()
+    print "new rest added"
+    return
 #
 #
 #
