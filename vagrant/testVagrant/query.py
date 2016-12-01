@@ -30,14 +30,33 @@ def fetchRestaurants():
     # print restsList
     return restsList
 
-# fetchRestaurants()
+def fetchOneRest(id):
+    rest = session.query(Restaurant).filter_by(id=id).one()
+    return rest
 
 def addRestaurant(name):
     newRestaurant = Restaurant(name=name)
     session.add(newRestaurant)
     session.commit()
-    print "new rest added"
+    print "new rest added", newRestaurant.name
     return
+
+
+def changeRestaurantName(restaurantId, newName):
+    restaurant = fetchOneRest(restaurantId)
+    restaurant.name = newName
+    session.add(restaurant)
+    session.commit()
+    print restaurantId, restaurant.name, " Restaurant name has been changed"
+    return
+
+def deleteRestaurant(id):
+    restaurant = fetchOneRest(id)
+    session.delete(restaurant)
+    session.commit()
+    print restaurant.name, " has been deleted"
+    return
+
 #
 #
 #
