@@ -10,7 +10,7 @@ import cgi
 from wsgiref.simple_server import make_server
 from wsgiref import util
 
-# HTML template for the forum page
+# HTML templates for the forum page
 HTML_WRAP = '''\
 <!DOCTYPE html>
 <html>
@@ -38,7 +38,7 @@ HTML_WRAP = '''\
 </html>
 '''
 
-# HTML template for an individual comment
+# HTML templates for an individual comment
 POST = '''\
     <div class=post><em class=date>%(time)s</em><br>%(content)s</div>
 '''
