@@ -20,7 +20,6 @@ def restaurantMenuJSON(restaurant_id):
         restaurant_id=restaurant_id).all()
     return jsonify(MenuItems=[i.serialize for i in items])
 
-
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
 def MenuJSON(restaurant_id, menu_id):
     # restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -30,8 +29,20 @@ def MenuJSON(restaurant_id, menu_id):
     return jsonify(MenuItem=item.serialize)
 
 
-
+# Home page - shows all restaurants
 @app.route('/')
+@app.route('/restaurants/')
+def showRestaurants():
+    restaurants = session.query(Restaurant).all()
+    return render_template('restaurants.html', restaurants=restaurants)
+
+# Add new restaurant
+@app.route('/restaurants/new')
+def addRestaurant():
+    # restaurants = session.query(Restaurant).all()
+    return 'add new rest'
+
+#Show menu of given restaurant
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurantMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -40,10 +51,8 @@ def restaurantMenu(restaurant_id):
 
 
 # Task 1: Create route for newMenuItem function here
-
 @app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
-
     if request.method == 'POST':
         newItem = MenuItem(name=request.form['name'], description=request.form[
                            'description'], price=request.form['price'], course=request.form['course'], restaurant_id=restaurant_id)
@@ -72,7 +81,6 @@ def editMenuItem(restaurant_id, menu_id):
 
 
 # Task 3: Create a route for deleteMenuItem function here
-
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete/', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
     item = session.query(MenuItem).filter_by(id=menu_id).one()
